@@ -1,35 +1,49 @@
-<!-- <template>
-  <div class="form">
-    <input type="text" placeholder="название фильма" v-model="input" />
-    <button>Поиск</button>
+<template>
+  <div class="movies-page">
+    <MoviesForm @searchMovie="searchMovie" />
   </div>
-  <div v-show="">
-    <MovieDetails />
+  <div class="movie-details">
+    <MovieDetails
+      v-for="film in films.slice(0, 20)"
+      :key="film.id"
+      :film="film"
+      :id="film.id"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import MovieDetails from "@/components/MovieDetails.vue";
+import MoviesForm from "@/components/MoviesForm.vue";
 export default {
-  components: { MovieDetails },
+  components: { MovieDetails, MoviesForm },
   name: "MoviesPage",
   data() {
     return {
-      input: "",
+      films: [],
     };
   },
   methods: {
-    searchMovie() {
+    searchMovie(req) {
       axios
-        .get(`https://imdb-api.com/en/API/Search/k_2f4ioji8/${this.input}`)
+        .get(`https://imdb-api.com/en/API/Search/k_1x27p28i/${req}`)
         .then((res) => {
-          this.input = res.data.items;
+          this.films = res.data.results;
+          if (!this.films == res.data.results) {
+            alert("error");
+          }
         });
-    },
-    getResult() {
-      if(this.input == )
     },
   },
 };
-</script> -->
+</script>
+
+<style>
+.movie-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+</style>

@@ -1,79 +1,59 @@
 <template>
-  <div class="movie-details">
-    <div class="btn">
-      <button v-for="btn in filterBtn" :key="btn" @click="filterMovie">
-        {{ btn }}
-      </button>
-      <button @click="getData">Фильмы</button>
+  <div class="movie-details__cards" @click="goToDetails(film.id)">
+    <div>
+      <img :src="film.image" alt="" />
     </div>
-    <div
-      class="movie-details__cards"
-      v-for="detail in filterDetails"
-      :key="detail.id"
-    >
-      <img :src="detail.image" alt="" />
-      <h4>{{ detail.title }}</h4>
-      <p>imDbRating {{ detail.imDbRating }}</p>
+    <div class="movie-details__cards-text">
+      <h4>{{ film.title }}</h4>
+      <p>{{ film.year }}</p>
+      <p>{{ film.imDbRating }}</p>
+      <p>{{ film.description }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import router from "@/router";
 export default {
-  name: "MovieDetails",
-  props: ["movies"],
-  data() {
-    return {
-      details: [],
-      filterBtn: ["Год", "Рейтинг"],
-      active: "",
-    };
-  },
-  // mounted() {
-  //   axios
-  //     .get("https://imdb-api.com/en/API/Top250Movies/k_2f4ioji8")
-  //     .then((res) => {
-  //       this.details = res.data.items;
-  //       console.log(this.details);
-  //     });
-  // },
-  computed: {
-    filterDetails() {
-      return this.details.slice(0, 20);
+  props: {
+    film: {
+      type: Object,
     },
   },
   methods: {
-    filterMovie() {
-      this.filterBtn = this.details
-        .slice(0, 20)
-        .filter((filt) => filt.year > 2000 || filt.imDbRating > 9);
-    },
-    getData() {
-      axios
-        .get("https://imdb-api.com/en/API/Top250Movies/k_2f4ioji8")
-        .then((res) => {
-          this.details = res.data.items;
-          console.log(this.details);
-        });
+    goToDetails(detailId) {
+      router.push(`/movies/${detailId}`);
     },
   },
 };
 </script>
 
 <style lang="scss">
-.movie-details {
-  width: 1400px;
-  margin: auto;
-  justify-content: space-between;
-  display: flex;
-  flex-wrap: wrap;
-  &__cards {
-    width: 300px;
-    margin: 40px 0;
-    img {
-      width: 100%;
-      height: 450px;
+.movie-details__cards {
+  width: 300px;
+  margin: 10px 0;
+  background: rgb(205, 208, 211);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px rgb(203, 242, 255);
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 400px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  &-text {
+    padding: 5px;
+    h4 {
+      color: rgb(8, 8, 8);
+      padding: 5px 0;
+      font-size: 20px;
+      text-align: center;
+    }
+    p {
+      color: rgb(5, 5, 5);
+      padding: 5px 0;
+      text-align: center;
     }
   }
 }

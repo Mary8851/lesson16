@@ -6,10 +6,12 @@
 
 <style lang="scss" scoped>
 .header {
-  padding: 20px;
+  padding: 30px;
+  background: rgb(13, 13, 13);
 }
 h1 {
-  text-align: center;
   font-size: 40px;
+  color: white;
+  text-align: center;
 }
 </style>

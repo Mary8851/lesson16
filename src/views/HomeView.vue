@@ -12,3 +12,10 @@ export default {
   name: "HomeView",
 };
 </script>
+
+<style>
+.home {
+  padding: 20px;
+  background: radial-gradient(circle, rgb(5, 11, 45) 0%, rgb(0, 0, 1) 100%);
+}
+</style>
