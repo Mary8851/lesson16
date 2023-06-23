@@ -1,7 +1,12 @@
 <template>
   <div class="form">
     <input type="text" v-model="input" placeholder="Название фильма" />
-    <button @click="sendForm">Поиск</button>
+    <button @click="sendForm">
+      <div v-if="isLoading" class="buttonload">
+        <i class="fa fa-refresh fa-spin"></i>
+      </div>
+      <span v-else>Поиск</span>
+    </button>
   </div>
   <div></div>
 </template>
@@ -12,6 +17,12 @@ export default {
       input: "",
     };
   },
+  props: {
+    isLoading: {
+      type: String,
+    },
+  },
+  emits: ["searchMovie"],
   methods: {
     sendForm() {
       this.$emit("searchMovie", this.input);
@@ -48,5 +59,10 @@ export default {
     font-weight: 700;
     cursor: pointer;
   }
+}
+.buttonload {
+  border: none;
+  color: white;
+  font-size: 16px;
 }
 </style>

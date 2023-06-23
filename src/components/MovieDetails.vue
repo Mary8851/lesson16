@@ -1,4 +1,5 @@
 <template>
+  <p v-if="isLoading">Идет загрузка</p>
   <div class="movie-details__cards" @click="goToDetails(film.id)">
     <div>
       <img :src="film.image" alt="" />
@@ -18,6 +19,9 @@ export default {
   props: {
     film: {
       type: Object,
+    },
+    isLoading: {
+      type: String,
     },
   },
   methods: {

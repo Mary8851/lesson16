@@ -39,9 +39,15 @@ export default {
   methods: {
     filterMovieYear() {
       this.films = this.films.filter((filt) => filt.year > 2000);
+      if (this.films == "") {
+        alert("Не найдено");
+      }
     },
     filterMovieRaiting() {
       this.films = this.films.filter((filt) => filt.imDbRating > 9);
+      if (this.films == "") {
+        setTimeout("alert('Не найдено')", 1000);
+      }
     },
   },
 };
